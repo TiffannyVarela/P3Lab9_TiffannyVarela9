@@ -24,17 +24,40 @@ char **readMatriz(char **, int, int);
 
 int menu2();
 
+string Pieza(int);
+
 
 int main(int argc, char const *argv[])
 {
     int resp=0;
-    int opc=0, opc2=0;
+    int opc=0, opc2=0, salir=0;
+    int cont=1;
+    char **tablero = NULL;
+    int size =8;
+    string nombre, pieza;
+    string coordenada, letra1,coor1,letra2,coor2;
+    Movimiento* mov, mov2;
+    vector <Movimiento*> movimientos;
+    ofstream outfile;
 
     do//inicio do while
     {
         switch(opc=menu()){//inicio switch
 
             case 1://inicio case 1
+                do//inicio do while case 1
+                {
+                    outfile.open("bitacoraPartidas.txt", std::ios::app);
+                    tablero = provisionarMatriz(size);
+                    cout<<"Nombre de la partida: ";
+                    cin>>nombre;
+                    outfile<<nombre<<endl;
+                    cout<<"Pieza: ";
+                    opc2=menu2();
+                    pieza=Pieza(opc2);
+                    outfile<<pieza<<endl;
+
+                } while (salir!=2);//fin do while case 1
             break;//fin case 1
 
             case 2://inicio case 2
@@ -181,5 +204,30 @@ void printMatrix(char **matriz, int size)
 
         cout << endl;
     }
+}
+
+string Pieza(int opc2){
+    string p="";
+    if (opc2==1)
+    {
+        p="Torre";
+    }
+    if (opc2==2)
+    {
+        p="Alfil";
+    }
+    if (opc2==3)
+    {
+        p="Reina";
+    }
+    if (opc2==4)
+    {
+        p="Caballo";
+    }
+    if (opc2==5)
+    {
+        p="Peon";
+    }
+    return p;
 }
 
