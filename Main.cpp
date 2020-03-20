@@ -68,40 +68,27 @@ int main(int argc, char const *argv[])
                         coor1 = coordenada.substr(2,1);
                         y1=sacar1(letra1);
                         x1=sacar2(coor1);
-                        //cout<<"X1: "<<x1<<endl;
-                        //cout<<"Y1: "<<y1<<endl;
-                        
 
                         letra2 = coordenada.substr(4,1);
                         coor2 = coordenada.substr(5,1);
                         y2=sacar1(letra2);
                         x2=sacar2(coor2);
-                        //cout<<"X2: "<<x2<<endl;
-                        //cout<<"Y2: "<<y2<<endl;
-                        cout<<"Posicion: ["<<x1<<"."<<y1<<","<<x2<<"."<<y2<<"]"<<endl;
 
                         while (x1==20 || y1==20 || x2==20 || y2==20)
                         {
-                            cout<<"Coordenada Invalida"<<endl;
+                            cout<<"Coordenada Invalida (Salio del Tablero)"<<endl;
                             cout<<"Ingresar Coordenada: ";
                             cin>>coordenada;
                             letra1 = coordenada.substr(1, 1);
                             coor1 = coordenada.substr(2, 1);
                             y1=sacar1(letra1);
                             x1=sacar2(coor1);
-                            //cout<<"X1: "<<x1<<endl;
-                            //cout<<"Y1: "<<y1<<endl;
 
                             letra2 = coordenada.substr(4,1);
                             coor2 = coordenada.substr(5,1);
                             y2=sacar1(letra2);
                             x2=sacar2(coor2);
-                            //cout<<"X2: "<<x2<<endl;
-                            //cout<<"Y2: "<<y2<<endl;
                         }
-                        //cout<<"despues: "<<coordenada<<endl;
-                        cout<<"Posicion1: ["<<x1<<"."<<y1<<","<<x2<<"."<<y2<<"]"<<endl;
-                        cout<<tablero[x1][y1]<<endl;
                         for (int i = 0; i < size; i++)
                         {
                             for (int j = 0; j < size; j++)
@@ -109,28 +96,44 @@ int main(int argc, char const *argv[])
                                 if (i==x1 && j==y1 || i==x2 && j==y2)
                                 {
                                     while(tablero[x1][y1] == ' ' || tablero[x2][y2] != ' '){
-                                        cout<<"Coordenada Invalida"<<endl;
+                                        cout<<"Coordenada Invalida (Primero Posicion Vacia O Segunda Posicion Llena)"<<endl;
                                         cout<<"Ingresar Coordenada: ";
                                         cin>>coordenada;
                                         letra1 = coordenada.substr(1, 1);
                                         coor1 = coordenada.substr(2, 1);
                                         y1=sacar1(letra1);
                                         x1=sacar2(coor1);
-                                        //cout<<"X1: "<<x1<<endl;
-                                        //cout<<"Y1: "<<y1<<endl;
 
                                         letra2 = coordenada.substr(4,1);
                                         coor2 = coordenada.substr(5,1);
                                         y2=sacar1(letra2);
                                         x2=sacar2(coor2);
                                         cout<<tablero[x1][y1]<<endl;
-                                        cout<<"Posicion2: ["<<x1<<"."<<y1<<","<<x2<<"."<<y2<<"]"<<endl;
                                     }
-                                    cout<<"Posicion3: ["<<x1<<"."<<y1<<","<<x2<<"."<<y2<<"]"<<endl;
                                 }
                             }
                         }
+                        while(tablero[x1][y1]!='K' && tablero[x1][y1]!='T' && tablero[x1][y1]!='A' && tablero[x1][y1]!='Q' && tablero[x1][y1]!='C' && tablero[x1][y1]!='P' ){
+                            cout<<"Coordenada Invalida (Pieza No Perteneciente al Jugador)"<<endl;
+                            cout<<"Ingresar Coordenada: ";
+                            cin>>coordenada;
+                            letra1 = coordenada.substr(1, 1);
+                            coor1 = coordenada.substr(2, 1);
+                            y1=sacar1(letra1);
+                            x1=sacar2(coor1);
+
+                            letra2 = coordenada.substr(4,1);
+                            coor2 = coordenada.substr(5,1);
+                            y2=sacar1(letra2);
+                            x2=sacar2(coor2);
+                        }
+                        
+                        //ya validado movimiento
                         text.push_back(coordenada);
+                        mov= new Movimiento(x1,y1,x2,y2);
+                        tablero[x2][y2] = tablero[x1][y1];
+                        tablero[x1][y1] = ' ';
+                        printMatrix(tablero, size);
                     }
                     cout << "Desea salir? \n1.Si \n2.No\n:";
                     cin >> opc3;
@@ -154,7 +157,7 @@ int main(int argc, char const *argv[])
         cout<<"Terminar el programa? \n1.Si \n2.No\n:";
         cin>>resp;
     } while (resp!=1);//fin do while
-
+    delete mov;
     return 0;
 }
 
