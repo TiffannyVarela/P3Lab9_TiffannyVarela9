@@ -14,6 +14,15 @@ protected:
 public:
 	Partida();
 	Partida(string,string,vector<Movimiento*>);
+
+	string getNombre();
+
+	void setPieza(string);
+	string getPieza();
+
+	vector <Movimiento*> getMovimientos();
+	void setMovimientos(vector<Movimiento*>);
+
 	~Partida();
 	
 };
