@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <cstlib>
+#include <cstdlib>
 #include <vector>
 using namespace std;
 
@@ -30,7 +30,7 @@ string Pieza(int);
 int main(int argc, char const *argv[])
 {
     int resp=0;
-    int opc=0, opc2=0, salir=0;
+    int opc=0, opc2=0, opc3=0,salir=0;
     int cont=1;
     char **tablero = NULL;
     int size =8;
@@ -56,14 +56,30 @@ int main(int argc, char const *argv[])
                     opc2=menu2();
                     pieza=Pieza(opc2);
                     outfile<<pieza<<endl;
-
-                } while (salir!=2);//fin do while case 1
+                    readMatriz(tablero,size,opc2);
+                    printMatrix(tablero,size);
+                    cout << "Desea salir? \n1.Si \n2.No\n:";
+                    cin >> opc3;
+                    if (opc3 == 1)
+                    {
+                        salir = -4;
+                    }
+                    else
+                    {
+                        salir = 0;
+                    }
+                } while (salir!=-4);//fin do while case 1
+                outfile.close();
+                liberarMatriz(tablero,size);
+                cont=1;
             break;//fin case 1
 
             case 2://inicio case 2
             break;//fin case 2
 
         }//fin switch
+        cout<<"Terminar el programa? \n1.Si \n2.No\n:";
+        cin>>resp;
     } while (resp!=2);//fin do while
 
     return 0;
