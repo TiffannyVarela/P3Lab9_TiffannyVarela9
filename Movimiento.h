@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 class Movimiento
 {
@@ -13,6 +14,7 @@ public:
 
     int getY();
     void setY(int);
+
 
 	~Movimiento();
 	

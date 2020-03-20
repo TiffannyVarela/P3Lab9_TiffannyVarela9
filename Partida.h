@@ -10,18 +10,20 @@ class Partida
 protected:
 	string nombre;
 	string pieza;
-	vector <Movimiento*> movimientos;
+	vector <string> movimientos;
 public:
 	Partida();
-	Partida(string,string,vector<Movimiento*>);
+	Partida(string,string,vector<string>);
 
 	string getNombre();
 
 	void setPieza(string);
 	string getPieza();
 
-	vector <Movimiento*> getMovimientos();
-	void setMovimientos(vector<Movimiento*>);
+	vector <string> getMovimientos();
+	void setMovimientos(vector<string>);
+
+	void guardarPartida();
 
 	~Partida();
 	

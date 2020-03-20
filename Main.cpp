@@ -9,8 +9,8 @@
 using namespace std;
 
 int menu();
-//Provisionar la matriz de chars
 
+//Provisionar la matriz de chars
 char **provisionarMatriz(int);
 
 //liberar memoria de la matriz
@@ -26,6 +26,9 @@ int menu2();
 
 string Pieza(int);
 
+int sacar1(string);
+int sacar2(string);
+
 
 int main(int argc, char const *argv[])
 {
@@ -36,8 +39,10 @@ int main(int argc, char const *argv[])
     int size =8;
     string nombre, pieza;
     string coordenada, letra1,coor1,letra2,coor2;
+    int x1,y1, x2,y2;
     Movimiento* mov, mov2;
     vector <Movimiento*> movimientos;
+    vector <string> text;
     ofstream outfile;
 
     do//inicio do while
@@ -47,17 +52,53 @@ int main(int argc, char const *argv[])
             case 1://inicio case 1
                 do//inicio do while case 1
                 {
-                    outfile.open("bitacoraPartidas.txt", std::ios::app);
                     tablero = provisionarMatriz(size);
                     cout<<"Nombre de la partida: ";
                     cin>>nombre;
-                    outfile<<nombre<<endl;
                     cout<<"Pieza: ";
                     opc2=menu2();
                     pieza=Pieza(opc2);
-                    outfile<<pieza<<endl;
                     readMatriz(tablero,size,opc2);
                     printMatrix(tablero,size);
+                    if (cont%2!=0)
+                    {
+                        cout<<"Ingresar Coordenada: ";
+                        cin>>coordenada;
+                        letra1 = coordenada.substr(1,1);
+                        coor1 = coordenada.substr(2,1);
+                        y1=sacar1(letra1);
+                        x1=sacar2(coor1);
+                        //cout<<"X1: "<<x1<<endl;
+                        //cout<<"Y1: "<<y1<<endl;
+
+                        letra2 = coordenada.substr(4,1);
+                        coor2 = coordenada.substr(5,1);
+                        y2=sacar1(letra2);
+                        x2=sacar2(coor2);
+                        //cout<<"X2: "<<x2<<endl;
+                        //cout<<"Y2: "<<y2<<endl;
+
+                        while (x1==20 || y1==20 || x2==20 || y2==20)
+                        {
+                            cout<<"Coordenada Invalida"<<endl;
+                            cout<<"Ingresar Coordenada: ";
+                            cin>>coordenada;
+                            letra1 = coordenada.substr(1, 1);
+                            coor1 = coordenada.substr(2, 1);
+                            y1=sacar1(letra1);
+                            x1=sacar2(coor1);
+                            //cout<<"X1: "<<x1<<endl;
+                            //cout<<"Y1: "<<y1<<endl;
+
+                            letra2 = coordenada.substr(4,1);
+                            coor2 = coordenada.substr(5,1);
+                            y2=sacar1(letra2);
+                            x2=sacar2(coor2);
+                            //cout<<"X2: "<<x2<<endl;
+                            //cout<<"Y2: "<<y2<<endl;
+                        }
+                        //cout<<"despues: "<<coordenada<<endl;
+                    }
                     cout << "Desea salir? \n1.Si \n2.No\n:";
                     cin >> opc3;
                     if (opc3 == 1)
@@ -69,7 +110,6 @@ int main(int argc, char const *argv[])
                         salir = 0;
                     }
                 } while (salir!=-4);//fin do while case 1
-                outfile.close();
                 liberarMatriz(tablero,size);
                 cont=1;
             break;//fin case 1
@@ -80,7 +120,7 @@ int main(int argc, char const *argv[])
         }//fin switch
         cout<<"Terminar el programa? \n1.Si \n2.No\n:";
         cin>>resp;
-    } while (resp!=2);//fin do while
+    } while (resp!=1);//fin do while
 
     return 0;
 }
@@ -246,4 +286,92 @@ string Pieza(int opc2){
     }
     return p;
 }
+
+int sacar1(string coor)
+{
+    int parte1;
+    if (coor == "A" || coor == "a")
+    {
+        parte1 = 0;
+    }
+    else if (coor == "B" || coor == "b")
+    {
+        parte1 = 1;
+    }
+    else if (coor == "C" || coor == "c")
+    {
+        parte1 = 2;
+    }
+    else if (coor == "D" || coor == "d")
+    {
+        parte1 = 3;
+    }
+    else if (coor == "E" || coor == "e")
+    {
+        parte1 = 4;
+    }
+    else if (coor == "F" || coor == "f")
+    {
+        parte1 = 5;
+    }
+    else if (coor == "G" || coor == "g")
+    {
+        parte1 = 6;
+    }
+    else if (coor == "H" || coor == "h")
+    {
+        parte1 = 7;
+    }
+    else
+    {
+        parte1 = 20;
+    }
+
+    return parte1;
+}
+
+int sacar2(string coor)
+{
+    int parte2;
+    if (coor == "1")
+    {
+        parte2 = 0;
+    }
+    else if (coor == "2")
+    {
+        parte2 = 1;
+    }
+    else if (coor == "3")
+    {
+        parte2 = 2;
+    }
+    else if (coor == "4")
+    {
+        parte2 = 3;
+    }
+    else if (coor == "5")
+    {
+        parte2 = 4;
+    }
+    else if (coor == "6")
+    {
+        parte2 = 5;
+    }
+    else if (coor == "7")
+    {
+        parte2 = 6;
+    }
+    else if (coor == "8")
+    {
+        parte2 = 7;
+    }
+    else
+    {
+        parte2 = 20;
+    }
+
+    return parte2;
+}
+
+
 

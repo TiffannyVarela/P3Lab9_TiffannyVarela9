@@ -11,6 +11,7 @@ Movimiento::Movimiento(int px, int py){
     this -> y = py;
 }
 
+
 int Movimiento::getX(){
     return x;
 }
