@@ -70,6 +70,7 @@ int main(int argc, char const *argv[])
                         x1=sacar2(coor1);
                         //cout<<"X1: "<<x1<<endl;
                         //cout<<"Y1: "<<y1<<endl;
+                        
 
                         letra2 = coordenada.substr(4,1);
                         coor2 = coordenada.substr(5,1);
@@ -77,6 +78,7 @@ int main(int argc, char const *argv[])
                         x2=sacar2(coor2);
                         //cout<<"X2: "<<x2<<endl;
                         //cout<<"Y2: "<<y2<<endl;
+                        cout<<"Posicion: ["<<x1<<"."<<y1<<","<<x2<<"."<<y2<<"]"<<endl;
 
                         while (x1==20 || y1==20 || x2==20 || y2==20)
                         {
@@ -98,6 +100,37 @@ int main(int argc, char const *argv[])
                             //cout<<"Y2: "<<y2<<endl;
                         }
                         //cout<<"despues: "<<coordenada<<endl;
+                        cout<<"Posicion1: ["<<x1<<"."<<y1<<","<<x2<<"."<<y2<<"]"<<endl;
+                        cout<<tablero[x1][y1]<<endl;
+                        for (int i = 0; i < size; i++)
+                        {
+                            for (int j = 0; j < size; j++)
+                            {
+                                if (i==x1 && j==y1 || i==x2 && j==y2)
+                                {
+                                    while(tablero[x1][y1] == ' ' || tablero[x2][y2] != ' '){
+                                        cout<<"Coordenada Invalida"<<endl;
+                                        cout<<"Ingresar Coordenada: ";
+                                        cin>>coordenada;
+                                        letra1 = coordenada.substr(1, 1);
+                                        coor1 = coordenada.substr(2, 1);
+                                        y1=sacar1(letra1);
+                                        x1=sacar2(coor1);
+                                        //cout<<"X1: "<<x1<<endl;
+                                        //cout<<"Y1: "<<y1<<endl;
+
+                                        letra2 = coordenada.substr(4,1);
+                                        coor2 = coordenada.substr(5,1);
+                                        y2=sacar1(letra2);
+                                        x2=sacar2(coor2);
+                                        cout<<tablero[x1][y1]<<endl;
+                                        cout<<"Posicion2: ["<<x1<<"."<<y1<<","<<x2<<"."<<y2<<"]"<<endl;
+                                    }
+                                    cout<<"Posicion3: ["<<x1<<"."<<y1<<","<<x2<<"."<<y2<<"]"<<endl;
+                                }
+                            }
+                        }
+                        text.push_back(coordenada);
                     }
                     cout << "Desea salir? \n1.Si \n2.No\n:";
                     cin >> opc3;
@@ -335,35 +368,35 @@ int sacar2(string coor)
     int parte2;
     if (coor == "1")
     {
-        parte2 = 0;
+        parte2 = 7;
     }
     else if (coor == "2")
     {
-        parte2 = 1;
+        parte2 = 6;
     }
     else if (coor == "3")
     {
-        parte2 = 2;
+        parte2 = 5;
     }
     else if (coor == "4")
     {
-        parte2 = 3;
+        parte2 = 4;
     }
     else if (coor == "5")
     {
-        parte2 = 4;
+        parte2 = 3;
     }
     else if (coor == "6")
     {
-        parte2 = 5;
+        parte2 = 2;
     }
     else if (coor == "7")
     {
-        parte2 = 6;
+        parte2 = 1;
     }
     else if (coor == "8")
     {
-        parte2 = 7;
+        parte2 = 0;
     }
     else
     {
