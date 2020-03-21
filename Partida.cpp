@@ -51,7 +51,7 @@ void Partida::guardarPartida(){
     		outfile<<";";
     	}
     }
-    outfile<<"#";
+    outfile<<"#"<<endl;
     outfile<<"--------------------------------------------------------------"<<endl;
 	outfile.close();
 }

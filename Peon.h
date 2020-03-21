@@ -9,6 +9,6 @@ class Peon:public Pieza
 {
 public:
 	Peon();
-	virtual bool validarMovimiento(Movimiento*, Movimiento*,char **);
+	virtual bool validarMovimiento(Movimiento*,char **);
 	~Peon();
 };

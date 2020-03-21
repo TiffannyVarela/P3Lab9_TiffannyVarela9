@@ -1,6 +1,12 @@
 #include "Pieza.h"
 #include "Partida.h"
 #include "Movimiento.h"
+#include "Alfil.h"
+#include "Peon.h"
+#include "Torre.h"
+#include "Rey.h"
+#include "Reina.h"
+#include "Caballo.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -34,7 +40,7 @@ int main(int argc, char const *argv[])
 {
     int resp=0;
     int opc=0, opc2=0, opc3=0,salir=0;
-    int cont=1;
+    int cont=2;
     char **tablero = NULL;
     int size =8;
     string nombre, pieza;
@@ -43,26 +49,32 @@ int main(int argc, char const *argv[])
     Movimiento* mov, mov2;
     vector <Movimiento*> movimientos;
     vector <string> text;
-    ofstream outfile;
+    Alfil* alfil;
+    Caballo* caballo;
+    Peon* peon;
+    Reina* reina;
+    Rey* rey;
+    Torre* torre;
+    Partida* partida;
 
     do//inicio do while
     {
         switch(opc=menu()){//inicio switch
 
             case 1://inicio case 1
+                tablero = provisionarMatriz(size);
+                cout<<"Nombre de la partida: ";
+                cin>>nombre;
+                cout<<"Pieza: ";
+                opc2=menu2();
+                pieza=Pieza(opc2);
+                readMatriz(tablero,size,opc2);
+                printMatrix(tablero,size);
                 do//inicio do while case 1
                 {
-                    tablero = provisionarMatriz(size);
-                    cout<<"Nombre de la partida: ";
-                    cin>>nombre;
-                    cout<<"Pieza: ";
-                    opc2=menu2();
-                    pieza=Pieza(opc2);
-                    readMatriz(tablero,size,opc2);
-                    printMatrix(tablero,size);
                     if (cont%2!=0)
                     {
-                        cout<<"Ingresar Coordenada: ";
+                        cout<<"Ingresar Coordenada NEGRO: ";
                         cin>>coordenada;
                         letra1 = coordenada.substr(1,1);
                         coor1 = coordenada.substr(2,1);
@@ -96,7 +108,7 @@ int main(int argc, char const *argv[])
                                 if (i==x1 && j==y1 || i==x2 && j==y2)
                                 {
                                     while(tablero[x1][y1] == ' ' || tablero[x2][y2] != ' '){
-                                        cout<<"Coordenada Invalida (Primero Posicion Vacia O Segunda Posicion Llena)"<<endl;
+                                        cout<<"Coordenada Invalida (Primero Posicion Vacia o Segunda Posicion Llena)"<<endl;
                                         cout<<"Ingresar Coordenada: ";
                                         cin>>coordenada;
                                         letra1 = coordenada.substr(1, 1);
@@ -127,27 +139,278 @@ int main(int argc, char const *argv[])
                             y2=sacar1(letra2);
                             x2=sacar2(coor2);
                         }
-                        
-                        //ya validado movimiento
-                        text.push_back(coordenada);
                         mov= new Movimiento(x1,y1,x2,y2);
-                        tablero[x2][y2] = tablero[x1][y1];
-                        tablero[x1][y1] = ' ';
-                        printMatrix(tablero, size);
+                        
+                        if (opc2==1)
+                        {
+                            if (torre->validarMovimiento(mov,tablero)==true)
+                            {
+                                text.push_back(coordenada);
+                                movimientos.push_back(mov);
+                                tablero[x2][y2] = tablero[x1][y1];
+                                tablero[x1][y1] = ' ';
+                                printMatrix(tablero, size);
+                            }
+                            else{
+                                cout<<"Movimiento Invalido"<<endl;
+                            }
+                        }
+
+                        if (opc2==2)
+                        {
+                            if (alfil->validarMovimiento(mov,tablero)==true)
+                            {
+                                text.push_back(coordenada);
+                                movimientos.push_back(mov);
+                                tablero[x2][y2] = tablero[x1][y1];
+                                tablero[x1][y1] = ' ';
+                                printMatrix(tablero, size);
+                            }
+                            else{
+                                cout<<"Movimiento Invalido"<<endl;
+                            }
+                        }
+
+                        if (opc2==3)
+                        {
+                            if (reina->validarMovimiento(mov,tablero)==true)
+                            {
+                                text.push_back(coordenada);
+                                movimientos.push_back(mov);
+                                tablero[x2][y2] = tablero[x1][y1];
+                                tablero[x1][y1] = ' ';
+                                printMatrix(tablero, size);
+                            }
+                            else{
+                                cout<<"Movimiento Invalido"<<endl;
+                            }
+                        }
+
+                        if (opc2==4)
+                        {
+                            if (caballo->validarMovimiento(mov,tablero)==true)
+                            {
+                                text.push_back(coordenada);
+                                movimientos.push_back(mov);
+                                tablero[x2][y2] = tablero[x1][y1];
+                                tablero[x1][y1] = ' ';
+                                printMatrix(tablero, size);
+                            }
+                            else{
+                                cout<<"Movimiento Invalido"<<endl;
+                            }
+                        }
+
+                        if (opc2==5)
+                        {
+                            if (peon->validarMovimiento(mov,tablero)==true)
+                            {
+                                text.push_back(coordenada);
+                                movimientos.push_back(mov);
+                                tablero[x2][y2] = tablero[x1][y1];
+                                tablero[x1][y1] = ' ';
+                                printMatrix(tablero, size);
+                            }
+                            else{
+                                cout<<"Movimiento Invalido"<<endl;
+                            }
+                        }
+                        
+                        cout << "Desea salir? \n1.Si \n2.No\n:";
+                        cin >> opc3;
+                        if (opc3 == 1)
+                        {
+                            salir = -4;
+                        }
+                        else
+                        {
+                            salir = 0;
+                            cont++;
+                        }
                     }
-                    cout << "Desea salir? \n1.Si \n2.No\n:";
-                    cin >> opc3;
-                    if (opc3 == 1)
+
+                    if (cont%2==0)
                     {
-                        salir = -4;
+                        cout<<"Ingresar Coordenada BLANCO: ";
+                        cin>>coordenada;
+                        letra1 = coordenada.substr(1,1);
+                        coor1 = coordenada.substr(2,1);
+                        y1=sacar1(letra1);
+                        x1=sacar2(coor1);
+
+                        letra2 = coordenada.substr(4,1);
+                        coor2 = coordenada.substr(5,1);
+                        y2=sacar1(letra2);
+                        x2=sacar2(coor2);
+
+                        while (x1==20 || y1==20 || x2==20 || y2==20)
+                        {
+                            cout<<"Coordenada Invalida (Salio del Tablero)"<<endl;
+                            cout<<"Ingresar Coordenada: ";
+                            cin>>coordenada;
+                            letra1 = coordenada.substr(1, 1);
+                            coor1 = coordenada.substr(2, 1);
+                            y1=sacar1(letra1);
+                            x1=sacar2(coor1);
+
+                            letra2 = coordenada.substr(4,1);
+                            coor2 = coordenada.substr(5,1);
+                            y2=sacar1(letra2);
+                            x2=sacar2(coor2);
+                        }
+                        for (int i = 0; i < size; i++)
+                        {
+                            for (int j = 0; j < size; j++)
+                            {
+                                if (i==x1 && j==y1 || i==x2 && j==y2)
+                                {
+                                    while(tablero[x1][y1] == ' ' || tablero[x2][y2] != ' '){
+                                        cout<<"Coordenada Invalida (Primero Posicion Vacia o Segunda Posicion Llena)"<<endl;
+                                        cout<<"Ingresar Coordenada: ";
+                                        cin>>coordenada;
+                                        letra1 = coordenada.substr(1, 1);
+                                        coor1 = coordenada.substr(2, 1);
+                                        y1=sacar1(letra1);
+                                        x1=sacar2(coor1);
+
+                                        letra2 = coordenada.substr(4,1);
+                                        coor2 = coordenada.substr(5,1);
+                                        y2=sacar1(letra2);
+                                        x2=sacar2(coor2);
+                                        cout<<tablero[x1][y1]<<endl;
+                                    }
+                                }
+                            }
+                        }
+                        while(tablero[x1][y1]!='k' && tablero[x1][y1]!='t' && tablero[x1][y1]!='a' && tablero[x1][y1]!='q' && tablero[x1][y1]!='c' && tablero[x1][y1]!='p' ){
+                            cout<<"Coordenada Invalida (Pieza No Perteneciente al Jugador)"<<endl;
+                            cout<<"Ingresar Coordenada: ";
+                            cin>>coordenada;
+                            letra1 = coordenada.substr(1, 1);
+                            coor1 = coordenada.substr(2, 1);
+                            y1=sacar1(letra1);
+                            x1=sacar2(coor1);
+
+                            letra2 = coordenada.substr(4,1);
+                            coor2 = coordenada.substr(5,1);
+                            y2=sacar1(letra2);
+                            x2=sacar2(coor2);
+                        }
+                        mov= new Movimiento(x1,y1,x2,y2);
+                        
+                        if (opc2==1)
+                        {
+                            torre = new Torre();
+                            if (torre->validarMovimiento(mov,tablero)==true)
+                            {
+                                text.push_back(coordenada);
+                                movimientos.push_back(mov);
+                                tablero[x2][y2] = tablero[x1][y1];
+                                tablero[x1][y1] = ' ';
+                                printMatrix(tablero, size);
+                            }
+                            else{
+                                cout<<"Movimiento Invalido"<<endl;
+                            }
+                        }
+
+                        if (opc2==2)
+                        {
+                            alfil = new Alfil();
+                            if (alfil->validarMovimiento(mov,tablero)==true)
+                            {
+                                text.push_back(coordenada);
+                                movimientos.push_back(mov);
+                                tablero[x2][y2] = tablero[x1][y1];
+                                tablero[x1][y1] = ' ';
+                                printMatrix(tablero, size);
+                            }
+                            else{
+                                cout<<"Movimiento Invalido"<<endl;
+                            }
+                        }
+
+                        if (opc2==3)
+                        {
+                            reina = new Reina();
+                            if (reina->validarMovimiento(mov,tablero)==true)
+                            {
+                                text.push_back(coordenada);
+                                movimientos.push_back(mov);
+                                tablero[x2][y2] = tablero[x1][y1];
+                                tablero[x1][y1] = ' ';
+                                printMatrix(tablero, size);
+                            }
+                            else{
+                                cout<<"Movimiento Invalido"<<endl;
+                            }
+                        }
+
+                        if (opc2==4)
+                        {
+                            caballo = new Caballo();
+                            if (caballo->validarMovimiento(mov,tablero)==true)
+                            {
+                                text.push_back(coordenada);
+                                movimientos.push_back(mov);
+                                tablero[x2][y2] = tablero[x1][y1];
+                                tablero[x1][y1] = ' ';
+                                printMatrix(tablero, size);
+                            }
+                            else{
+                                cout<<"Movimiento Invalido"<<endl;
+                            }
+                        }
+
+                        if (opc2==5)
+                        {
+                            peon = new Peon();
+                            if (peon->validarMovimiento(mov,tablero)==true)
+                            {
+                                text.push_back(coordenada);
+                                movimientos.push_back(mov);
+                                tablero[x2][y2] = tablero[x1][y1];
+                                tablero[x1][y1] = ' ';
+                                printMatrix(tablero, size);
+                            }
+                            else{
+                                cout<<"Movimiento Invalido"<<endl;
+                            }
+                        }
+                        cont++;
                     }
-                    else
-                    {
-                        salir = 0;
-                    }
+
                 } while (salir!=-4);//fin do while case 1
+                partida = new Partida(nombre, pieza, text);
+                partida->guardarPartida();
                 liberarMatriz(tablero,size);
                 cont=1;
+                if (opc2==1)
+                {
+                    delete torre;
+                }
+                if (opc2==2)
+                {
+                    delete alfil;
+                }
+                if (opc2==3)
+                {
+                    delete reina;
+                }
+                if (opc2==4)
+                {
+                    delete caballo;
+                }
+                if (opc2==5)
+                {
+                    delete peon;
+                }
+                for (int i = 0; i < movimientos.size(); i++)
+                {
+                    delete movimientos[i];
+                    movimientos[i] = NULL;
+                }
+                movimientos.clear();
             break;//fin case 1
 
             case 2://inicio case 2
@@ -157,7 +420,8 @@ int main(int argc, char const *argv[])
         cout<<"Terminar el programa? \n1.Si \n2.No\n:";
         cin>>resp;
     } while (resp!=1);//fin do while
-    delete mov;
+    delete partida;
+    cout<<"Finalizado"<<endl;
     return 0;
 }
 
@@ -191,7 +455,7 @@ int menu2()
         cout << "MENU" << endl
              << "1.- Torre" << endl
              << "2.- Alfil" << endl
-             << "3.- Dama" << endl
+             << "3.- Reina" << endl
              << "4.- Caballo" << endl
              << "5.- Peon" << endl;
         cout << "Ingrese una opcion: ";

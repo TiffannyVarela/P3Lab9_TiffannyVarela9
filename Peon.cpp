@@ -3,27 +3,27 @@
 #include <typeinfo>
 #include <string>
 #include <iostream>
-using namespce std;
+using namespace std;
 
 Peon::Peon():Pieza(){
 
 }
 
 
-bool Peon::validarMovimiento (Movimiento* mov,Movimiento* mov2, char** matriz){
+bool Peon::validarMovimiento (Movimiento* mov, char** matriz){
     bool retval = false;
-    /*if(mov->getY()==7 || mov -> getY()==2){
-        if(mov2->getY()==(mov->getY()+2) || mov2->getY()==(mov->getY()-2)){
+    if(mov->getY()==1 || mov -> getY()==6){
+        if(mov->getY1()==(mov->getY()+2)){
             retval=true;
         }
     }
-    else if (mov2->getY()==(mov->getY()+1))
+    else if (mov->getY1()==(mov->getY()+1))
     {
         retval=true;
     }
     else{
         retval=false;
-    }*/
+    }
     
     return retval;
 }
