@@ -9,6 +9,7 @@
 #include "Caballo.h"
 #include <iostream>
 #include <fstream>
+//#include <ofstream>
 #include <string>
 #include <cstdlib>
 #include <vector>
@@ -56,6 +57,12 @@ int main(int argc, char const *argv[])
     Rey* rey;
     Torre* torre;
     Partida* partida;
+
+    ifstream texto("bitacoraPartidas.txt");
+    string line="";
+    vector<string>nombres;
+    vector<string>piesas;
+    string nom_jug, nom_piec;
 
     do//inicio do while
     {
@@ -414,6 +421,17 @@ int main(int argc, char const *argv[])
             break;//fin case 1
 
             case 2://inicio case 2
+                /*if (texto.is_open)
+                {
+                    while(texto.get()!='#'){
+                        texto.unget();
+                        getline(texto,nom_jug, '\n');
+                        nombres.push_back(nom_jug);
+                        getline(texto,nom_piec, '\n');
+                        piesas.push_back(nom_piec);
+                        //while(texto.get()!='#'){}
+                    }
+                }*/
             break;//fin case 2
 
         }//fin switch
